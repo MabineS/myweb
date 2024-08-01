@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title> Segopotso Clicker Game with High Score</title>
+    <style>
+        
+    body 
+    {
+            text-align: center;
+            font-family: Arial, sans-serif;
+
+            background-color:#80FF00;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+   //         background-image:url("https://upload.wikimedia.org/wikipedia/en/a/aa/Bart_Simpson_200px.png");
+            
+
+        }
+        
+          
+
+        #game-container {
+     ;
+            padding:34px;
+            border-radius: 10px;
+                 }
+
+        #score {
+            font-size: 24px;
+            margin-bottom: 20px;
+            
+        }
+               
+    </style>
+</head>
+<body>
+    
+           <img src="https://static.wikia.nocookie.net/theregularshow/images/d/dd/Rigby.png"    />
+               
+  <h1></h1>  MOTSEO Clicker Game</h1>
+    <p>Click the button to increase your score:</p>
+    <button id="clickButton">Click Me!</button>
+    <p>Time Left: <span id="timer">30</span> seconds</p>
+    <p>Score: <span id="score">0</span></p>
+    <p>High Score: <span id="highScore">0</span></p>
+   <img src="https://upload.wikimedia.org/wikipedia/en/a/aa/Bart_Simpson_200px.png"    />
+
+    <script>
+        let score = 0;
+        let timeLeft = 30;
+        let highScore = localStorage.getItem("highScore") || 0; 
+         
+       
+        const scoreElement = document.getElementById("score");
+        const clickButton = document.getElementById("clickButton");
+        const timerElement = document.getElementById("timer");
+        const highScoreElement = document.getElementById("highScore");
+        function updateScore() {
+            score++;
+            scoreElement.textContent = score;
+        }
+
+
+        function updateTimer() {
+            timeLeft--;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                clickButton.removeEventListener("click", updateScore);
+                if (score > highScore) {
+                    highScore = score; 
+                    localStorage.setItem("highScore", highScore); 
+                }
+                alert("OOPS Game Over! Your Score: " + score);
+                highScoreElement.textContent = highScore; 
+            } else {
+                timerElement.textContent = timeLeft;
+            }
+        }
+
+
+        clickButton.addEventListener("click", updateScore);
+
+        
+        const timerInterval = setInterval(updateTimer, 1000);
+        
+        highScoreElement.textContent = highScore;
+    </script>
+    
+    
+</body>
+
+</html>
